@@ -1,0 +1,9 @@
+- 1
+- 2
+- 3: Con esta ruta inicializo para que llame en node_modules a require, este es un nombre convencional pero por buenas prácticas se llama igual a la libreria, express es para que pueda crear las rutas facilmente.
+- 4: app es el nombre que se le da a la función, al usar express() se está diciendo que para usar las peticiones ya sean get, put, delete, etc. se usen empezando por app.
+- 5
+- 6
+- 7
+- 8: 
+- 9: req es la peticion que llega al servidor (la que hace el cliente), res es la respuesta del servidor al cliente, por ejemplo un log, los resultados de su solicitud en formato JSON o en res.send() que es texto simple.
