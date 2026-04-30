@@ -17,3 +17,15 @@ Explicación:
 - 8: .cathc() es por si .then() no funcionó, es una línea para el manejo de error si el paso anterior no fue exitoso.
 
 - 9: req es la peticion que llega al servidor (la que hace el cliente), res es la respuesta del servidor al cliente, por ejemplo un log, los resultados de su solicitud en formato JSON o en res.send() que es texto simple.
+
+- 10:
+
+- 11:
+
+- 12:
+
+- 13:
+
+- 14:
+
+- 15:
