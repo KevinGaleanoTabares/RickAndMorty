@@ -1,3 +1,0 @@
-Explicación
-
-- 1:
