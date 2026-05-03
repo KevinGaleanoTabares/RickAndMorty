@@ -2,6 +2,7 @@
 require('dotenv').config(); // 2
 const express = require('express'); // 3
 const mongoose = require('mongoose');
+const cors = require('cors');
 const User = require('./models/User');
 const bcrypt = require('bcrypt');
 // const user = require('./models/User');
@@ -9,7 +10,7 @@ const jwt = require('jsonwebtoken');
 
 
 const app = express(); // 4
-
+app.use(cors()); 
 app.use(express.json()); // 5
 console.log("conexion es: ", process.env.MONGO_URI);
 
@@ -19,13 +20,16 @@ mongoose.connect(process.env.MONGO_URI) // 6
 
 
     const verifyToken = (req, res, next) => { // 18
-        const token = req.headers['authorization']; // 19
+        const authHeader = req.headers['authorization']; // 19
 
-        if (!token) {
+        if (!authHeader) {
             return res.status(403).json({message: "Token Requerido"});
         }
 
+
     try {
+        const token = authHeader.split(' ')[1]; // se usa con un espacio para que lea a partir de un espacio porque llega en Bearer token y entonces lee el token por el arreglo que lea en el espacio 1.
+
         const decoded = jwt.verify(token, process.env.JWT_SECRET);// 20
         req.user = decoded; // 21
         next (); // 22
@@ -49,6 +53,9 @@ app.listen(3000, () => {
 
 app.post('/register', async (req, res) => {
     try {
+
+        console.log("BODY:", req.body);
+        
         const {name, email, password, age} = req.body // 10
 
         const hashedPassword = await bcrypt.hash(password, 10); // 11
