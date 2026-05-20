@@ -60,11 +60,15 @@ app.post('/register', async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(password, 10); // 11
 
+        const randomId = Math.floor(Math.random()*20) + 1;
+        const avatar = `https://rickandmortyapi.com/api/character/avatar/${randomId}.jpeg`;
+
         const newUser = new User({
             name,
             email,
             password: hashedPassword,
-            age
+            age,
+            avatar
         });
 
         const existingUser = await User.findOne({ email });
@@ -159,13 +163,17 @@ app.get('/users/:id', async (req,res) => {
 
 app.put('/users/:id', verifyToken, async (req, res) => {
     const {name, email, password, age} = req.body
+    console.log("BODY:", req.body);
+    console.log("ID:", req.params.id);
     try {
+
+        console.log("ANTES:", await User.findById(req.params.id));
         const updatedUser = await User.findByIdAndUpdate( 
             req.params.id,
             { name, email, age }, // 27
             { new: true }
         );  
-
+        console.log("DESPUÉS:", updatedUser);
         res.json(updatedUser);
     }   catch (error) {
         res.status(500).json( {error: error.message} );
